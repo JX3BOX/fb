@@ -1,2 +1,2 @@
 (window.webpackJsonp=window.webpackJsonp||[]).push([["chunk-64905000"],{"0767":function(t,e,n){"use strict";n.r(e);var a={name:"Team",props:[],data:function(){return{}},computed:{},methods:{},created:function(){}},c=(n("44cb"),n("2877")),r=Object(c.a)(a,(function(){var t=this.$createElement,e=this._self._c||t;return e("div",{staticClass:"m-fb-team"},[e("el-alert",{attrs:{title:"即将推出，敬请期待",type:"warning",center:"","show-icon":""}})],1)}),[],!1,null,null,null);e.default=r.exports},"44cb":function(t,e,n){"use strict";var a=n("e31a");n.n(a).a},e31a:function(t,e,n){}}]);
-//# sourceMappingURL=chunk-64905000.fb11e35d.js.map
+//# sourceMappingURL=chunk-64905000.25521c56.js.map
