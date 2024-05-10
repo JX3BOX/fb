@@ -3,7 +3,8 @@
         <Header></Header>
         <Breadcrumb name="副本专栏" slug="fb" :publishEnable="true" :feedbackEnable="true" :adminEnable="true">
             <template #op-prepend>
-                <AdminDirectMessage :user-id="user_id" :sourceId="String(post.ID)" :sourceType="post.post_type"></AdminDirectMessage>
+                <!-- <AdminDirectMessage :user-id="user_id" :sourceId="String(post.ID)" :sourceType="post.post_type"></AdminDirectMessage> -->
+                <AdminDrop v-if="isEditor" :post="post" :user-id="user_id" />
             </template>
             <template #title>
                 <span>
@@ -28,7 +29,9 @@
 import Nav from "@/components/single/single_nav.vue";
 import Side from "@/components/single/single_side.vue";
 import { getAppIcon, getAppID } from "@jx3box/jx3box-common/js/utils";
-import AdminDirectMessage from "@jx3box/jx3box-common-ui/src/bread/AdminDirectMessage.vue"
+import AdminDirectMessage from "@jx3box/jx3box-common-ui/src/bread/AdminDirectMessage.vue";
+import AdminDrop from "@jx3box/jx3box-common-ui/src/bread/AdminDrop.vue";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "SingleLayout",
     props: [],
@@ -46,13 +49,17 @@ export default {
         },
         title() {
             return this.post.post_title || document.title;
+        },
+        isEditor() {
+            return User.isEditor();
         }
     },
     methods: { getAppIcon },
     components: {
         Nav,
         Side,
-        AdminDirectMessage
+        // AdminDirectMessage,
+        AdminDrop,
     },
 };
 </script>
