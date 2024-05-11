@@ -59,6 +59,8 @@
             :current-page.sync="page"
             @current-change="changePage"
         ></el-pagination>
+
+        <design-task v-model="showDesignTask" :post="currentPost"></design-task>
     </div>
 </template>
 <script>
@@ -67,6 +69,10 @@ import listItem from "@/components/list/list_item.vue";
 import { publishLink } from "@jx3box/jx3box-common/js/utils";
 import { getPosts } from "@/service/post";
 import { reportNow } from "@jx3box/jx3box-common/js/reporter";
+import {getDesignLog} from "@/service/design";
+import DesignTask from "@jx3box/jx3box-common-ui/src/bread/DesignTask.vue";
+import bus from "@/utils/bus";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "Index",
     props: [],
@@ -87,6 +93,9 @@ export default {
             client: this.$store.state.client, //版本选择
             search: "", //搜索字串
             topic: "", //专题
+
+            showDesignTask: false,
+            currentPost: {},
         };
     },
     computed: {
@@ -172,7 +181,7 @@ export default {
 
             this.loading = true;
             return getPosts(query)
-                .then((res) => {
+                .then(async (res) => {
                     if (appendMode) {
                         this.data = this.data.concat(res.data?.data?.list);
                     } else {
@@ -187,6 +196,17 @@ export default {
                             aggregate: res.data?.data?.list.map(item => this.reporterLink(item.ID)),
                         }
                     })
+
+                    if (User.hasPermission('push_banner') && !this.isPhone) {
+                        const ids = this.data.map(item => item.ID);
+                        const logs = await getDesignLog({ source_type: 'fb', ids: ids.join(',') }).then(res => res.data.data);
+
+                        this.data = this.data.map(item => {
+                            const log = logs.find(log => log.source_id == item.ID) || null;
+                            this.$set(item, 'log', log);
+                            return item;
+                        });
+                    }
 
                     this.$forceUpdate();
                 })
@@ -262,9 +282,15 @@ export default {
             },
         },
     },
-    mounted: function () {},
+    mounted: function () {
+        bus.on("design-task", (post) => {
+            this.currentPost = post;
+            this.showDesignTask = true;
+        });
+    },
     components: {
         listItem,
+        DesignTask,
     },
 };
 </script>
