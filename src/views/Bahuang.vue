@@ -17,8 +17,12 @@
                     </el-tabs>
                     <div class="m-tab-box">
                         <div class="u-box">
-                            <div v-for="(item, i) in leftOptions[activeTabName]" :key="'a' + i" class="u-bahuang-l-box"
-                                @click="leftIconClick(item, i, activeTabName)">
+                            <div
+                                v-for="(item, i) in leftOptions[activeTabName]"
+                                :key="'a' + i"
+                                class="u-bahuang-l-box"
+                                @click="leftIconClick(item, i, activeTabName)"
+                            >
                                 <skill :info="item" :select="item.select" :skillType="false" />
                                 <span class="u-name">{{ item.Name }}</span>
                             </div>
@@ -26,8 +30,13 @@
                     </div>
                 </div>
                 <div class="m-bahuang-content" v-loading="rightLoading">
-                    <RightBox :selectOptions="selectOptions" :isEdit="isEdit" @skillClick="rightSkill($event)"
-                        @saveScheme="openSaveScheme($event)" @icoRemove="icoRightRemove($event)" />
+                    <RightBox
+                        :selectOptions="selectOptions"
+                        :isEdit="isEdit"
+                        @skillClick="rightSkill($event)"
+                        @saveScheme="openSaveScheme($event)"
+                        @icoRemove="icoRightRemove($event)"
+                    />
                 </div>
                 <!--<div class="m-bahuang-right" v-if="isLogin">-->
                 <!--<el-button type="primary" @click="schemeDrawer = true" icon="el-icon-setting" size="small">我的预设</el-button>-->
@@ -37,8 +46,12 @@
         <!--预设方案抽屉-->
         <drawer :drawer="schemeDrawer" @update-drawer="updateDrawer" @use="useScheme($event)"></drawer>
         <!--保存方案弹窗-->
-        <el-dialog :title="title" :visible.sync="dialogFormVisible" :close-on-press-escape="false"
-            :close-on-click-modal="false">
+        <el-dialog
+            :title="title"
+            :visible.sync="dialogFormVisible"
+            :close-on-press-escape="false"
+            :close-on-click-modal="false"
+        >
             <el-form :model="schemeForm">
                 <el-form-item label="方案名称">
                     <el-input v-model="schemeForm.title" autocomplete="off"></el-input>
@@ -54,7 +67,7 @@
         </el-dialog>
     </app-layout>
 </template>
-<script >
+<script>
 import { getAppIcon, iconLink } from "@jx3box/jx3box-common/js/utils";
 import RightBox from "@/components/bahuang/right.vue";
 import skill from "@/components/bahuang/skill.vue";
@@ -69,7 +82,7 @@ export default {
         RightBox,
         skill,
         drawer,
-        AppLayout
+        AppLayout,
     },
     data: function () {
         return {
@@ -126,18 +139,19 @@ export default {
         //xf筛选
         let xf_filtrate = [],
             xfArr = Object.entries(xf);
-        for (let i = 0; i < xfArr.length; i++) {
-            if (xfArr[i][1].client.indexOf("origin") !== -1) {
-                xf_filtrate.push(xfArr[i]);
-            }
-        }
-        this.xf_filtrate = xf_filtrate;
+        // for (let i = 0; i < xfArr.length; i++) {
+        //     if (xfArr[i][1].client.indexOf("origin") !== -1) {
+        //         xf_filtrate.push(xfArr[i]);
+        //     }
+        // }
+        this.xf_filtrate = xfArr;
     },
     methods: {
         getAppIcon,
         getBhhj() {
             getBhhjInfo()
                 .then((data) => {
+                    console.log(data);
                     this.leftOptions.stunt = data[3];
                     this.leftOptions.arcane = data[4];
                     this.leftOptions.cheats = data[2];
@@ -185,16 +199,16 @@ export default {
                 info: item,
                 index: i,
             };
-            let type = typeName
+            let type = typeName;
             switch (typeName) {
-                case 'arcane':
-                    type = 1
+                case "arcane":
+                    type = 1;
                     break;
-                case 'cheats':
-                    type = 2
+                case "cheats":
+                    type = 2;
                     break;
-                case 'stunt':
-                    type = 3
+                case "stunt":
+                    type = 3;
                     break;
             }
             if (type === 1) {
@@ -394,10 +408,10 @@ export default {
                             this.rightLoading = false;
                         });
                 })
-                .catch(() => { });
+                .catch(() => {});
         },
     },
-}
+};
 </script>
 
 <style lang="less">
