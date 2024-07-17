@@ -214,7 +214,7 @@ export default {
             this.mode = "";
 
             const query = {
-                fb_name,
+                fb_name : fb_name,
                 topic: this.topic,
             };
             this.$router.push({ query });

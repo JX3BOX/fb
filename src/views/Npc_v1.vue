@@ -314,6 +314,9 @@ export default {
         fb: function() {
             return this.$route.query.fb_name || this.$store.state.default_fb;
         },
+        fb_search_name: function() {
+            return this.dungeons[this.fb]['name_for_search'] || this.fb;
+        },
         map() {
             return this.$store.state.map;
         },
@@ -361,7 +364,7 @@ export default {
                     page: i,
                     client: this.client,
                 });
-                getMapNpc(this.fb, params)
+                getMapNpc(this.fb_search_name, params)
                     .then((res) => {
                         if (append) {
                             this.data = this.data.concat(res.data.list);
@@ -385,7 +388,7 @@ export default {
                             if(NPCID) ids.push(...(NPCID.map(id => parseInt(id))));
                             return ids;
                         }, []);
-                        getMapNpc(this.fb, {
+                        getMapNpc(this.fb_search_name, {
                             ids: ids.join(","),
                             client: this.client,
                             per: 20

@@ -16,7 +16,7 @@
         "@jx3box/jx3box-comment-ui": "^1.9.9",
         "@jx3box/jx3box-common": "^8.2.25",
         "@jx3box/jx3box-common-ui": "^8.9.7",
-        "@jx3box/jx3box-data": "^3.6.0",
+        "@jx3box/jx3box-data": "^3.6.2",
         "@jx3box/jx3box-editor": "^2.2.12",
         "axios": "^0.21.1",
         "core-js": "^3.4.3",
