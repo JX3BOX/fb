@@ -25,6 +25,7 @@
             <markBy @filter="filterMeta"></markBy>
             <!-- 排序过滤 -->
             <orderBy @filter="filterMeta"></orderBy>
+            <versionBy :value="is_wujie" @filter="filterIsWujie"></versionBy>
         </div>
 
         <!-- 列表 -->
@@ -73,6 +74,7 @@ import {getDesignLog} from "@/service/design";
 import DesignTask from "@jx3box/jx3box-common-ui/src/bread/DesignTask.vue";
 import bus from "@/utils/bus";
 import User from "@jx3box/jx3box-common/js/user";
+import versionBy from "@jx3box/jx3box-common-ui/src/filters/versionBy.vue"
 export default {
     name: "Index",
     props: [],
@@ -93,6 +95,7 @@ export default {
             client: this.$store.state.client, //版本选择
             search: "", //搜索字串
             topic: "", //专题
+            is_wujie: 0,
 
             showDesignTask: false,
             currentPost: {},
@@ -115,6 +118,7 @@ export default {
                 mark: this.mark,
                 client: this.client,
                 topic: this.topic,
+                is_wujie: this.is_wujie,
             };
         },
         // 分页相关参数
@@ -228,6 +232,11 @@ export default {
         filterMeta: function (o) {
             this.replaceRoute({ [o["type"]]: o["val"], page: 1 });
         },
+        filterIsWujie: function (o) {
+            const val = o["val"];
+
+            this.is_wujie = val;
+        },
         // 条件过滤（不附加路由）
         filterImperceptibly: function (o) {
             this[o["type"]] = o["val"];
@@ -282,16 +291,25 @@ export default {
                 this.loadData();
             },
         },
+        is_wujie() {
+            this.page = 1;
+            this.replaceRoute({ page: 1 })
+        }
     },
     mounted: function () {
         bus.on("design-task", (post) => {
             this.currentPost = post;
             this.showDesignTask = true;
         });
+
+        if (this.client !== "origin") {
+            this.is_wujie = this.isPhone ? 1 : 0;
+        }
     },
     components: {
         listItem,
         DesignTask,
+        versionBy
     },
 };
 </script>
