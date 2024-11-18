@@ -5,7 +5,7 @@
             <div class="u-desc" v-html="chuantou['desc']"></div>
             <ul class="u-content">
                 <li v-for="(item, i) in chuantou['skills']" :key="i">
-                    <a :href="item.link" target="_blank">
+                    <a :href="getLink(item)" target="_blank">
                         <img :src="item.icon | iconLink" />
                         {{ item.name }}
                         <span v-if="item.school">{{ showSchool(item.school) }}</span>
@@ -16,7 +16,7 @@
             <div class="u-desc" v-html="chuanci['desc']"></div>
             <ul class="u-content">
                 <li v-for="(item, i) in chuanci['skills']" :key="i">
-                    <a :href="item.link" target="_blank" :title="item.meta_1">
+                    <a :href="getLink(item)" target="_blank" :title="item.meta_1">
                         <img :src="item.icon | iconLink" />
                         {{ item.name }}
                         <span v-if="item.school">{{ showSchool(item.school) }}</span>
@@ -28,7 +28,7 @@
         <div class="u-desc" v-html="guanti['desc']"></div>
         <ul class="u-content">
             <li v-for="(item, i) in guanti['skills']" :key="i">
-                <a :href="item.link" target="_blank" :title="item.meta_1">
+                <a :href="getLink(item)" target="_blank" :title="item.meta_1">
                     <img :src="item.icon | iconLink" />
                     {{ item.name }}
                     <span v-if="item.school">{{ showSchool(item.school) }}</span>
@@ -88,6 +88,10 @@ export default {
         },
         showSchool(id) {
             return schoolid[id] || "";
+        },
+        getLink(item) {
+            const {link, type, id} = item;
+            return link || `/app/database?type=${type}&query=${id}`;
         }
     },
     mounted: function () {
