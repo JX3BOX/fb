@@ -21,6 +21,7 @@
                     class="u-fb-select"
                     size="small"
                     :filter-method="filterMethod"
+                    @clear="changeFb"
                 >
                     <el-option label="全部" value=""></el-option>
                     <hr class="u-divider" />
@@ -229,6 +230,7 @@ export default {
             if (fb_name) {
                 this.fbDetail = this.dungeons?.[fb_name];
                 this.search = this.fbName || "";
+
             } else {
                 this.fbDetail = {
                     maps: [],
@@ -236,6 +238,7 @@ export default {
                     icon: "",
                 };
             }
+            this.filterMap = cloneDeep(this.map);
         },
         tagActive: function (tag_name) {
             return this.$route.name == tag_name;
