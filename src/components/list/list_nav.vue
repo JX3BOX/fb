@@ -20,11 +20,12 @@
                     @change="changeFb"
                     class="u-fb-select"
                     size="small"
+                    :filter-method="filterMethod"
                 >
                     <el-option label="全部" value=""></el-option>
                     <hr class="u-divider" />
                     <el-option-group
-                        v-for="(group, key) in map"
+                        v-for="(group, key) in filterMap"
                         :key="key"
                         :label="'🍄 ' + key + '(' + group.level + ')'"
                     >
@@ -112,10 +113,12 @@
 </template>
 
 <script>
+import { cloneDeep } from "lodash";
 import { __imgPath } from "/node_modules/@jx3box/jx3box-common/data/jx3box.json";
 //引入默认副本信息
 import { default_zlp, default_fb } from "/setting.json";
 import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
+import { match } from 'pinyin-pro';
 export default {
     name: "listNav",
     props: [],
@@ -168,6 +171,8 @@ export default {
                     name: "attr",
                 },
             ],
+
+            filterMap: {}
         };
     },
     computed: {
@@ -244,6 +249,32 @@ export default {
                 },
             });
         },
+        filterMethod(query) {
+            if (query) {
+                let result = {};
+
+                Object.entries(this.map).forEach(([key, group]) => {
+                    let dungeon = {};
+                    Object.entries(group.dungeon).forEach(([subkey, subitem]) => {
+                        if (match(subkey, query)?.length) {
+                            dungeon[subkey] = subitem;
+                        }
+                    });
+
+                    if (Object.keys(dungeon)?.length) {
+                        result[key] = {
+                            level: group.level,
+                            dungeon,
+                        };
+                    }
+                })
+
+                this.filterMap = result;
+
+            } else {
+                this.filterMap = cloneDeep(this.map);
+            }
+        },
     },
     watch: {
         "$route.query": {
@@ -279,6 +310,13 @@ export default {
             };
             this.$router.push({ query });
         },
+        map: {
+            deep: true,
+            immediate: true,
+            handler(val) {
+                this.filterMap = cloneDeep(val);
+            }
+        }
     },
 };
 </script>
