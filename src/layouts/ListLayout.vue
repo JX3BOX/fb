@@ -10,6 +10,9 @@
             :feedbackEnable="true"
             :crumbEnable="true"
         >
+            <template #logo>
+                <img class="u-breadcrumb-logo" :src="logo" alt="">
+            </template>
             <Info />
         </Breadcrumb>
         <LeftSidebar>
@@ -33,11 +36,13 @@ import Nav from "@/components/list/list_nav.vue";
 import tabs from "@/components/tabs.vue";
 import Info from "@/components/Info.vue";
 import Side from "@/components/baizhan/map_side.vue";
+import { __cdn } from "@jx3box/jx3box-common/data/jx3box.json";
 export default {
     name: "App",
     data: function () {
         return {
             withoutRight: false,
+            logo: __cdn + "logo/logo-light/fb.svg",
         };
     },
     components: {
