@@ -75,12 +75,12 @@
         <div class="m-nav-app">
             <h5 class="u-title">在线应用</h5>
             <a href="/fb/bahuang" target="_blank" v-if="client == 'origin'">
-                <img class="u-icon" :src="getAppIcon('bhhj')" />
+                <img class="u-icon" :src="getAppIcon('baizhan')" />
                 <span>八荒衡鉴</span>
                 <em>Ba Huang</em>
             </a>
             <a href="/fb/baizhan" target="_blank" v-if="client == 'std'">
-                <img class="u-icon" :src="getAppIcon('bhhj')" />
+                <img class="u-icon" :src="getAppIcon('baizhan')" />
                 <span>百战查询</span>
                 <em>Bai Zhan</em>
             </a>
@@ -115,10 +115,8 @@
 
 <script>
 import { cloneDeep } from "lodash";
-import { __imgPath } from "/node_modules/@jx3box/jx3box-common/data/jx3box.json";
+import { __imgPath, __cdn } from "/node_modules/@jx3box/jx3box-common/data/jx3box.json";
 //引入默认副本信息
-import { default_zlp, default_fb } from "/setting.json";
-import { getAppIcon } from "@jx3box/jx3box-common/js/utils";
 import { match } from 'pinyin-pro';
 export default {
     name: "listNav",
@@ -213,7 +211,9 @@ export default {
             let current = this.$route.query.fb_name;
             return current == subkey;
         },
-        getAppIcon,
+        getAppIcon(key) {
+            return __cdn + 'logo/logo-light/' + key + '.svg';
+        },
         //下拉框修改展示的副本内容
         changeFb: function (fb_name) {
             this.boss = "";
