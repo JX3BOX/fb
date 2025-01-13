@@ -12,10 +12,10 @@
         "npc": "node ./tools/npc.js"
     },
     "dependencies": {
-        "@jx3box/jx3box-bmap": "^0.1.13",
+        "@jx3box/jx3box-bmap": "^0.1.14",
         "@jx3box/jx3box-comment-ui": "^2.0.2",
         "@jx3box/jx3box-common": "^8.5.4",
-        "@jx3box/jx3box-common-ui": "^9.0.28",
+        "@jx3box/jx3box-common-ui": "^9.0.29",
         "@jx3box/jx3box-data": "^3.7.7",
         "@jx3box/jx3box-editor": "^2.2.23",
         "axios": "^0.21.1",
