@@ -10,6 +10,7 @@
                 :key="i + item"
                 :item="item"
                 :order="order"
+                caller="fb_index_click"
             />
         </div>
         <!-- 空 -->
