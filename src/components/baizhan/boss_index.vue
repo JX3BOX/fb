@@ -76,7 +76,9 @@ export default {
             return {
                 ...currentBoss,
                 skills: skills.map((skill) => {
-                    const skillObj = this.skills.find((item) => item.dwInSkillID === skill);
+                    const skillObj = this.skills.find(
+                        (item) => item.dwInSkillID === skill || item.dwOutSkillID === skill
+                    );
                     return {
                         skillId: skill,
                         skillName: skillObj?.szSkillName,

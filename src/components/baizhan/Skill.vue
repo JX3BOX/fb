@@ -4,7 +4,7 @@
             <img class="w-skill-icon" :src="iconLink(data.IconID || 13)" :alt="data.Name" />
             <div class="w-skill-content">
                 <span class="w-skill-name">{{ data.Name }}</span>
-                <span class="w-skill-desc">{{ data.Desc }}</span>
+                <span class="w-skill-desc" v-html="data.Desc"></span>
                 <span class="w-skill-meta">ID : {{ data.SkillID }}</span>
             </div>
         </div>

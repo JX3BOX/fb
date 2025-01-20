@@ -54,6 +54,9 @@ export default {
             deep: true,
             handler(source) {
                 this.data = source.Skill;
+                if (source?.ParsedSkill?.desc) {
+                    this.data.Desc = source.ParsedSkill.desc.replace(/\\n/g, "<br />");
+                }
                 // let { client, id, level } = this.params;
                 // // 读取本地数据
                 // const cache = sessionStorage.getItem(`skill-${client}-${id}-${level}`);

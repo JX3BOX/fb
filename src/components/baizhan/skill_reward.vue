@@ -49,7 +49,9 @@ export default {
         toSkill(skill) {
             this.$store.commit("baizhan/setState", {
                 key: "currentSkill",
-                val: this.allSkills.find((item) => item.dwInSkillID === skill.skillId),
+                val: this.allSkills.find(
+                    (item) => item.dwInSkillID === skill.skillId || item.dwOutSkillID === skill.skillId
+                ),
             });
             this.$store.commit("baizhan/setState", {
                 key: "activeTab",

@@ -18,7 +18,10 @@
             <div class="u-item-title">掉落来源</div>
             <div class="u-item-content">
                 <div v-if="skill.szBossName" class="u-avatar">
-                    <img :src="getAvatar(skill.szBossName) || `${__imgRoot}fbcdpanel02_51.png`" :alt="skill.szBossName" />
+                    <img
+                        :src="getAvatar(skill.szBossName) || `${__imgRoot}fbcdpanel02_51.png`"
+                        :alt="skill.szBossName"
+                    />
                 </div>
                 <div class="u-name" :class="!skill.szBossName && 'u-no-name'">{{ skill.szBossName || "未知" }}</div>
             </div>
@@ -90,9 +93,9 @@ export default {
             };
         },
         skillDesc() {
-            return this.currentSkill?.Skill?.Desc.replace(/\</g, "< ")
-                .replace(/\>/g, " >")
-                .replace(/\<.*?\>/g, (match, key) => {
+            const desc = this.currentSkill?.ParsedSkill?.desc || "";
+            return desc
+                .replace(/\[.*?\]/g, (match, key) => {
                     return `<span class="${this.isShow ? "is-show" : "is-hidden"}">${match}</span>`;
                 })
                 .replaceAll("\\n", "<br><br>");
