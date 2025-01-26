@@ -18,6 +18,7 @@ import singlebox from "@/components/cms-single";
 import { getPost } from "../../service/post.js";
 import { getStat, postStat, postHistory, postReadHistory } from "@jx3box/jx3box-common/js/stat";
 import { appKey } from "../../../setting.json";
+import User from "@jx3box/jx3box-common/js/user";
 export default {
     name: "single",
     props: ['id'],
