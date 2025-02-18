@@ -1,7 +1,7 @@
-import { $helper } from "@jx3box/jx3box-common/js/https";
+import { $node } from "@jx3box/jx3box-common/js/https";
 
 export function getGemList(params) {
-    return $helper().get('/api/item/prediction', {
+    return $node().get('/api/node/item/prediction', {
         params: params,
     })
 }
